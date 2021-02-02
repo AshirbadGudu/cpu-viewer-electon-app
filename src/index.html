@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>CPU Viewer💖</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <h1>CPU Viewer💖</h1>
+  <p>Welcome to My Electron CPU Viewer application.</p>
+  <div>
+    <h1>CPU (%) :-<span id="cpu"></span></h1>
+    <h1>Memory (%) :-<span id="memory"></span></h1>
+    <h1>Total Memory (%) :-<span id="total"></span></h1>
+  </div>
+  <script>
+    const electron = require('electron');
+    const ipcRenderer = electron.ipcRenderer;
+
+    ipcRenderer.on('cpuUsage', (event, data) => {
+      document.getElementById('cpu').innerText = data.toFixed(2) + "%";
+    });
+    ipcRenderer.on('memoryUsage', (event, data) => {
+      document.getElementById('memory').innerText = data.toFixed(2) + "%";
+    });
+    ipcRenderer.on('memoryUsageGB', (event, data) => {
+      document.getElementById('total').innerText = data.toFixed(2) + "GB";
+    });
+  </script>
+</body>
+
+</html>
